@@ -1,0 +1,17 @@
+# BLASTn output format 6
+# https://www.metagenomics.wiki/tools/blast/blastn-output-format-6
+
+# BLAST+ version Nucleotide-Nucleotide BLAST 2.13.0+
+cd /usr/local/ncbi/blast
+# need help, and check the version number for blast
+blastn -h
+
+# without making db file, suitable for small dataset, do not support multiprocessing
+blastn  -query /Users/lijsirene/Library/CloudStorage/OneDrive-UNSW/2_progress/00_black_soil/blast/260_sequence.fasta  -subject /Users/lijsirene/Library/CloudStorage/OneDrive-UNSW/2_progress/00_black_soil/blast/cultrome_ASV.fasta -out cultrome_ASV_vs_sequences_blastn.txt -outfmt 6
+
+
+# make db first, suitable for big dataset, support multiprocessing
+makeblastdb -in /Users/lijsirene/Library/CloudStorage/OneDrive-UNSW/2_progress/00_black_soil/blast/260_sequence.fasta -dbtype nucl -parse_seqids
+
+
+blastn -query /Users/lijsirene/Library/CloudStorage/OneDrive-UNSW/2_progress/00_black_soil/blast/cultrome_ASV.fasta -db /Users/lijsirene/Library/CloudStorage/OneDrive-UNSW/2_progress/00_black_soil/blast/260_sequence.fasta -out /Users/lijsirene/Library/CloudStorage/OneDrive-UNSW/2_progress/00_black_soil/blast/cultrome_ASV_vs_sequences_blastn_by_making_db.txt -outfmt 6 -num_threads 9
